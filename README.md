@@ -1,29 +1,5 @@
 # SQL Injection Mini-Lab (Flask + SQLite)
 
-> Mục tiêu: Minh họa 3 ca SQLi kinh điển và cách fix": Login, Search, ORDER BY
-
-## Cấu trúc
-```
-app/
-  __init__.py
-  config.py
-  db.py
-  blueprints/
-    auth.py
-    products.py
-  services/
-    user_service.py
-    product_service.py
-  templates/
-    base.html
-    login.html
-    search.html
-    products.html
-  static/css/style.css
-run.py
-requirements.txt
-```
-
 ## Cách chạy
 ```bash
 python -m venv venv
