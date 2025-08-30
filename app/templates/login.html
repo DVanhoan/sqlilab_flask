@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-header {{ 'bg-danger text-white' if mode=='vuln' else 'bg-success text-white' }}">
+        {{ 'Vulnerable Login' if mode=='vuln' else 'Safe Login' }}
+      </div>
+      <div class="card-body">
+        <form method="post">
+          <div class="mb-3">
+            <label class="form-label">Username</label>
+            <input class="form-control" name="username" value="{{ username or '' }}">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input class="form-control" type="password" name="password">
+          </div>
+          <button class="btn {{ 'btn-danger' if mode=='vuln' else 'btn-success' }}" type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-header">SQL Executed</div>
+      <div class="card-body">
+        {% if executed_sql %}
+        <pre style="white-space: pre-wrap;">{{ executed_sql }}</pre>
+        {% if bindings %}
+        <hr>
+        <div><strong>Bindings:</strong></div>
+        <pre>{{ bindings }}</pre>
+        {% endif %}
+        <div class="text-muted small">* This is printed by the app to help visualize SQL vs parameters.</div>
+        {% else %}
+        <em>Submit the form to see executed SQL here.</em>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

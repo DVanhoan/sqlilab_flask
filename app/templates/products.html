@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-md-7">
+    <div class="card shadow-sm">
+      <div class="card-header {{ 'bg-danger text-white' if mode=='vuln' else 'bg-success text-white' }}">
+        {{ 'Vulnerable Products (ORDER BY)' if mode=='vuln' else 'Safe Products (ORDER BY)' }}
+      </div>
+      <div class="card-body">
+        <form method="get" class="row g-2">
+          <div class="col-auto">
+            <label class="col-form-label">Order by</label>
+          </div>
+          <div class="col-auto">
+            <input class="form-control" name="order" value="{{ order or 'id' }}">
+          </div>
+          <div class="col-auto">
+            <button class="btn {{ 'btn-danger' if mode=='vuln' else 'btn-success' }}" type="submit">Apply</button>
+          </div>
+        </form>
+        {% if error %}
+        <div class="alert alert-danger mt-3">{{ error }}</div>
+        {% endif %}
+        <hr>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in products %}
+            <tr>
+              <td>{{ p['id'] }}</td>
+              <td>{{ p['name'] }}</td>
+              <td>${{ p['price'] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-5">
+    <div class="card shadow-sm">
+      <div class="card-header">SQL Executed</div>
+      <div class="card-body">
+        {% if executed_sql %}
+        <pre style="white-space: pre-wrap;">{{ executed_sql }}</pre>
+        <div class="small text-muted">Safe mode applies a whitelist: id, name, price.</div>
+        {% else %}
+        <em>Submit to see executed SQL here.</em>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-header {{ 'bg-danger text-white' if mode=='vuln' else 'bg-success text-white' }}">
+        {{ 'Vulnerable Search' if mode=='vuln' else 'Safe Search' }}
+      </div>
+      <div class="card-body">
+        <form method="get">
+          <div class="mb-3">
+            <label class="form-label">Search term</label>
+            <input class="form-control" name="q" value="{{ q or '' }}">
+          </div>
+          <button class="btn {{ 'btn-danger' if mode=='vuln' else 'btn-success' }}" type="submit">Search</button>
+        </form>
+        <hr>
+        <ul>
+          {% for p in products %}
+          <li>{{ p['name'] }} - ${{ p['price'] }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-header">SQL Executed</div>
+      <div class="card-body">
+        {% if executed_sql %}
+        <pre style="white-space: pre-wrap;">{{ executed_sql }}</pre>
+        {% if bindings %}
+        <hr><strong>Bindings:</strong>
+        <pre>{{ bindings }}</pre>
+        {% endif %}
+        {% else %}
+        <em>Run a search to see executed SQL here.</em>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
