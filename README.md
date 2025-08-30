@@ -1,6 +1,6 @@
 # SQL Injection Mini-Lab (Flask + SQLite)
 
-> Mục tiêu: Minh họa 3 ca SQLi kinh điển và cách fix "chuẩn doanh nghiệp": Login, Search, ORDER BY
+> Mục tiêu: Minh họa 3 ca SQLi kinh điển và cách fix": Login, Search, ORDER BY
 
 ## Cấu trúc
 ```
